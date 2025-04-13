@@ -1,0 +1,8 @@
+gradio==5.12.0
+email-validator==2.1.1
+numpy==1.26.4
+pandas==2.1.4
+transformers
+torch
+requests
+python-dotenv
