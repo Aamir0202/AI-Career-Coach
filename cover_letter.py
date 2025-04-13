@@ -17,20 +17,14 @@ headers = {
 def query_huggingface_api(prompt):
     payload = {
         "inputs": prompt,
-        "parameters": {"max_new_tokens": 256, "temperature": 0.7}
+        "parameters": {"max_new_tokens": 1024, "temperature": 0.7}
     }
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.json()[0]["generated_text"]
 
 # Cover letter generator function
 def generate_cover_letter(company_name, position_name, job_description, resume_content):
-    prompt = (
-        f"Write a professional and personalized cover letter for the company '{company_name}' "
-        f"for the position of '{position_name}'. "
-        f"Use the following job description:\n{job_description}\n\n"
-        f"And base it on the following resume content:\n{resume_content}\n\n"
-        f"Make sure to highlight how the resume aligns with the job role."
-    )
+    prompt = f"Generate a customized cover letter using the company name: {company_name}, the position applied for: {position_name}, and the job description: {job_description}. Ensure the cover letter highlights my qualifications and experience as detailed in the resume content: {resume_content}. Adapt the content carefully to avoid including experiences not present in my resume but mentioned in the job description. The goal is to emphasize the alignment between my existing skills and the requirements of the role."
     return query_huggingface_api(prompt)
 
 # Gradio Interface

@@ -21,17 +21,11 @@ def query_huggingface_api(prompt):
         "parameters": {"max_new_tokens": 1024, "temperature": 0.7}
     }
     response = requests.post(API_URL, headers=headers, json=payload)
-    print(response.json())
     return response.json()[0]["generated_text"]
 
 # Career advice function
 def generate_career_advice(position_applied, job_description, resume_content):
-    prompt = (
-        f"Considering the job description:\n{job_description}\n\n"
-        f"And the resume content:\n{resume_content}\n\n"
-        f"Give tailored advice on how to improve the resume to increase chances of being selected for the '{position_applied}' role. "
-        f"Include specific suggestions for alignment with the job role."
-    )
+    prompt = f"Considering the job description: {job_description}, and the resume provided: {resume_content}, identify areas for enhancement in the resume. Offer specific suggestions on how to improve these aspects to better match the job requirements and increase the likelihood of being selected for the position of {position_applied}."    
     return query_huggingface_api(prompt)
 
 # Gradio Interface

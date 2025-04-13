@@ -25,16 +25,11 @@ def query_huggingface_api(prompt):
 # Resume polishing function
 def polish_resume(position_name, resume_content, polish_instruction=""):
     if polish_instruction.strip():
-        prompt = (
-            f"Polish the following resume content for the '{position_name}' position, based on these instructions:\n"
-            f"{polish_instruction}\n\nResume:\n{resume_content}"
-        )
+        prompt_use = f"Given the resume content: '{resume_content}', polish it based on the following instructions: {polish_instruction} for the {position_name} position."
     else:
-        prompt = (
-            f"Improve and polish this resume for the '{position_name}' position. Focus on clarity, alignment with the role, and overall professionalism.\n\n"
-            f"Resume:\n{resume_content}"
-        )
-    return query_huggingface_api(prompt)
+        prompt_use = f"Suggest improvements for the following resume content: '{resume_content}' to better align with the requirements and expectations of a {position_name} position. Return the polished version, highlighting necessary adjustments for clarity, relevance, and impact in relation to the targeted role."
+
+    return query_huggingface_api(prompt_use)
 
 # Gradio Interface
 resume_polish_app = gr.Interface(
